@@ -22,18 +22,94 @@ export default {
       },
     },
     {
-      title: 'Slides',
-      name: 'slides',
+      title: 'Filters',
+      name: 'filters',
       type: 'array',
       of: [
         {
-          name: 'slide',
+          title: 'Tag',
+          name: 'tag',
+          type: 'string' 
+        }
+      ]
+    },
+    {
+      title: 'Islands',
+      name: 'islands',
+      type: 'array',
+      of: [
+        {
+          name: 'Island',
           type: 'object',
           fields: [
               {
-                  name: 'slideText',
-                  type: 'richText' 
+                  title: 'Title',
+                  name: 'title',
+                  type: 'string' 
+              }, 
+              {
+                  title: 'Data Depth',
+                  name: 'dataDepth',
+                  type: 'string' 
+              },                
+              {
+                  title: 'Title Position X',
+                  name: 'titlePositionX',
+                  type: 'string' 
+              },              
+              {
+                title: 'Title Position Y',
+                name: 'titlePositionY',
+                type: 'string' 
+              },             
+              {
+                  title: 'SVG Code',
+                  name: 'svg',
+                  type: 'text' 
+              }, 
+              {
+                  title: 'Color',
+                  name: 'color',
+                  type: 'colorPicker' 
               },
+              {
+                  title: 'Island Position X',
+                  name: 'islandPositionX',
+                  type: 'string' 
+              },              
+              {
+                title: 'Island Position Y',
+                name: 'islandPositionY',
+                type: 'string' 
+              },                             
+              {
+                title: 'Projects',
+                name: 'projects',
+                type: 'array',
+                of: [
+                  {
+                    name: 'Project',
+                    type: 'object',
+                    fields: [
+                      {
+                        title: 'Title',
+                        name: 'title',
+                        type: 'string'
+                      },
+                      {
+                          title: 'Title Position X',
+                          name: 'titlePositionX',
+                          type: 'string' 
+                      },              
+                      {
+                        title: 'Title Position Y',
+                        name: 'titlePositionY',
+                        type: 'string' 
+                      }
+                    ]
+                  }                   
+                ]
+              }
           ]
         },
       ]
