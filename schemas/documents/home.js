@@ -105,6 +105,13 @@ export default {
                         title: 'Title Position Y',
                         name: 'titlePositionY',
                         type: 'string' 
+                      },
+                      {
+                        title: 'Project',
+                        name: 'project',
+                        type: 'reference',
+                        weak: true,
+                        to: [{type: 'project'}],
                       }
                     ]
                   }                   

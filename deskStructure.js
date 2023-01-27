@@ -22,6 +22,15 @@ export default () =>
             .schemaType('home')
         ),
       S.listItem()
+        .title('Projects')
+        .icon(DocumentIcon)
+        .child(
+          S.documentList()
+          .title('Project')
+          .id('project')
+          .filter('_type == "project"')
+        ),       
+      S.listItem()
         .title('About')
         .icon(PostIcon)      
         .child(

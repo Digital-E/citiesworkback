@@ -8,6 +8,7 @@ import richText from './objects/richText'
 import openGraph from './objects/openGraph'
 import captionImage from './objects/captionImage'
 import home from './documents/home'
+import project from './documents/project'
 import about from './documents/about'
 import legal from './documents/legal'
 import menu from './documents/menu'
@@ -24,6 +25,7 @@ export default createSchema({
     openGraph,
     captionImage,
     home,
+    project,
     about,
     legal,
     menu,
