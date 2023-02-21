@@ -23,6 +23,18 @@ export default {
       },
     },
     {
+      title: 'Tags',
+      name: 'tags',
+      type: 'array',
+      of: [
+        {
+          title: 'Tag',
+          name: 'tag',
+          type: 'string' 
+        }
+      ]
+    },
+    {
       title: 'Slices',
       name: 'slices',
       type: 'array',
