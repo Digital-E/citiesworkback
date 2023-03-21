@@ -81,7 +81,12 @@ export default {
                 title: 'Island Position Y',
                 name: 'islandPositionY',
                 type: 'string' 
-              },                             
+              },    
+              {
+                title: 'Island Width',
+                name: 'islandWidth',
+                type: 'string' 
+              },                           
               {
                 title: 'Projects',
                 name: 'projects',
