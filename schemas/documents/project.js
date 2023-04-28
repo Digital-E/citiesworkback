@@ -73,6 +73,12 @@ export default {
           type: 'object',
           fields: [
             {
+            name: 'title',
+            type: 'string',
+            readOnly: true,
+            initialValue: 'Video'
+            },            
+            {
             name: 'videoId',
             description: 'Add Vimeo or Youtube Video ID',
             type: 'string'
