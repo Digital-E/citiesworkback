@@ -92,7 +92,33 @@ export default {
               }
             },
           ]
-        },    
+        },
+        {
+          name: 'audio',
+          type: 'object',
+          fields: [
+            {
+            name: 'title',
+            type: 'string',
+            readOnly: true,
+            initialValue: 'Audio'
+            },            
+            {
+            name: 'file',
+            title: 'File',
+            type: 'file',
+            options: {accept: 'audio/*'}
+            },
+            {
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+              options: {
+                isHighlighted: true
+              }
+            },
+          ]
+        },             
       ]
     }    
   ]
