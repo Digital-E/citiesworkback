@@ -4,34 +4,35 @@ export default {
   type: 'document',
   fields: [
       {
-          title: 'Text Field One',
-          name: 'textFieldOne',
-          type: 'richText'
-      },
-      {
-          title: 'Name Placeholder',
-          name: 'namePlaceholder',
-          type: 'string'
-      },      
-      {
-          title: 'Email Placeholder',
-          name: 'emailPlaceholder',
-          type: 'string'
-      },
-      {
-          title: 'Email Submit Button Text',
-          name: 'submitButtonText',
-          type: 'string'
-      },
-      {
-        title: 'Error Message',
-        name: 'errorMessage',
-        type: 'string'
-      },
-      {
-        title: 'Legal Label',
-        name: 'legalLabel',
-        type: 'string'
-      },                           
+        title: 'Ticker',
+        name: 'ticker',
+        type: 'array',       
+        of: [
+          {
+            title: 'Element',
+            name: 'element',
+            type: 'object',
+            preview: {
+              select: {
+                title: 'subElement.0',
+              }
+            },
+            fields: [
+              {
+                title: 'Sub Element',
+                name: 'subElement',
+                type: 'array',
+                of: [
+                  {
+                    title: 'Element',
+                    name: 'element',
+                    type: 'string'
+                  }
+                ]
+              }
+            ]
+          }                   
+        ]
+      }                                
   ]
 }

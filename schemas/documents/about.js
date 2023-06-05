@@ -17,6 +17,7 @@ export default {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
+      readOnly: true,
       options: {
         source: (doc) => `about`,
       },
@@ -30,11 +31,6 @@ export default {
       title: 'Text Column Two',
       name: 'textcolumntwo',
       type: 'richText'
-    },
-    {
-      title: 'Text Column Three',
-      name: 'textcolumnthree',
-      type: 'richText'
-    },
+    }
   ]
 }

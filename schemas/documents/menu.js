@@ -23,21 +23,6 @@ export default {
             ]
           },
         ]
-      },
-      {
-        title: 'Cookie Text',
-        name: 'cookietext',
-        type: 'richText'
-      },
-      {
-        title: 'Cookie Accept',
-        name: 'cookieaccept',
-        type: 'string'
-      },
-      {
-        title: 'Cookie Refuse',
-        name: 'cookierefuse',
-        type: 'string'
       }
   ]
 }

@@ -17,6 +17,7 @@ export default {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
+      readOnly: true,
       options: {
         source: (doc) => `legal`,
       },

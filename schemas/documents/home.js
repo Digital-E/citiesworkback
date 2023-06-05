@@ -17,6 +17,7 @@ export default {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
+      readOnly: true,
       options: {
         source: `/`,
       },
@@ -67,11 +68,6 @@ export default {
                   name: 'svg',
                   type: 'text' 
               }, 
-              {
-                  title: 'Color',
-                  name: 'color',
-                  type: 'colorPicker' 
-              },
               {
                   title: 'Island Position X',
                   name: 'islandPositionX',
