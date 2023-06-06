@@ -38,6 +38,7 @@ export default {
       title: 'Islands',
       name: 'islands',
       type: 'array',
+      validation: Rule => Rule.length(5),
       of: [
         {
           name: 'Island',
