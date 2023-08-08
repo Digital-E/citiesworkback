@@ -3,6 +3,18 @@ export default {
   title: 'Project',
   name: 'project',
   type: 'document',
+  preview: {
+    select: {
+      title: 'title',
+      name: 'name'
+    },
+    prepare(selection) {
+      const {title, name} = selection
+      return {
+        title: `${name} - ${title}`
+      }
+    }
+  },
   fields: [
     {
       title: 'Name',
