@@ -3,5 +3,6 @@ const previewSecret = 'MY_SECRET' // Copy the string you used for SANITY_PREVIEW
 const projectUrl = process.env.SANITY_STUDIO_PROJECT_URL
 
 export default function resolveProductionUrl(document) {
+  if (!document?.slug?.current) return null
   return `${projectUrl}/api/preview?secret=${previewSecret}&slug=${document.slug.current}`
 }
