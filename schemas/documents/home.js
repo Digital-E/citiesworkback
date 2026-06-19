@@ -1,3 +1,5 @@
+import ProjectIslandInput from '../../components/ProjectIslandInput'
+
 export default {
   title: 'Home',
   name: 'home',
@@ -30,7 +32,7 @@ export default {
         {
           title: 'Tag',
           name: 'tag',
-          type: 'string' 
+          type: 'string'
         }
       ]
     },
@@ -47,43 +49,43 @@ export default {
               {
                   title: 'Title',
                   name: 'title',
-                  type: 'string' 
-              }, 
+                  type: 'string'
+              },
               {
                   title: 'Data Depth',
                   name: 'dataDepth',
-                  type: 'string' 
-              },                
+                  type: 'string'
+              },
               {
                   title: 'Title Position X',
                   name: 'titlePositionX',
-                  type: 'string' 
-              },              
+                  type: 'string'
+              },
               {
                 title: 'Title Position Y',
                 name: 'titlePositionY',
-                type: 'string' 
-              },             
+                type: 'string'
+              },
               {
                   title: 'SVG Code',
                   name: 'svg',
-                  type: 'text' 
-              }, 
+                  type: 'text'
+              },
               {
                   title: 'Island Position X',
                   name: 'islandPositionX',
-                  type: 'string' 
-              },              
+                  type: 'string'
+              },
               {
                 title: 'Island Position Y',
                 name: 'islandPositionY',
-                type: 'string' 
-              },    
+                type: 'string'
+              },
               {
                 title: 'Island Width',
                 name: 'islandWidth',
-                type: 'string' 
-              },                           
+                type: 'string'
+              },
               {
                 title: 'Projects',
                 name: 'projects',
@@ -92,6 +94,7 @@ export default {
                   {
                     name: 'Project',
                     type: 'object',
+                    inputComponent: ProjectIslandInput,
                     fields: [
                       {
                         title: 'Title',
@@ -101,12 +104,23 @@ export default {
                       {
                           title: 'Title Position X',
                           name: 'titlePositionX',
-                          type: 'string' 
-                      },              
+                          type: 'string',
+                          hidden: true,
+                      },
                       {
                         title: 'Title Position Y',
                         name: 'titlePositionY',
-                        type: 'string' 
+                        type: 'string',
+                        hidden: true,
+                      },
+                      {
+                        name: 'pickerPosition',
+                        type: 'object',
+                        hidden: true,
+                        fields: [
+                          { name: 'x', type: 'string' },
+                          { name: 'y', type: 'string' },
+                        ]
                       },
                       {
                         title: 'Project',
@@ -116,7 +130,7 @@ export default {
                         to: [{type: 'project'}],
                       }
                     ]
-                  }                   
+                  }
                 ]
               }
           ]
