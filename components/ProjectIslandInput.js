@@ -4,8 +4,12 @@ import {FormBuilderInput} from 'part:@sanity/form-builder'
 import PatchEvent, {set} from '@sanity/form-builder/PatchEvent'
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PROJECT_URL || ''
+// Matches resolveProductionUrl.js's SANITY_PREVIEW_SECRET copy.
+const PREVIEW_SECRET = 'MY_SECRET'
+// Routed through /api/preview so the picker reflects unpublished draft
+// positions, not just what's live. Preview mode is capped to 120s server-side.
 const pickerSrc = PREVIEW_URL
-  ? `${PREVIEW_URL}${PREVIEW_URL.includes('?') ? '&' : '?'}picker=true`
+  ? `${PREVIEW_URL}/api/preview?secret=${PREVIEW_SECRET}&slug=home&picker=true`
   : ''
 
 const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
