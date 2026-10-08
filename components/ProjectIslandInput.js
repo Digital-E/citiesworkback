@@ -11,11 +11,16 @@ const pickerSrc = PREVIEW_URL
 const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
   const {value = {}, type, onChange, level, focusPath = [], onFocus, onBlur, markers = [], presence = []} = props
   const [isOpen, setIsOpen] = useState(false)
+  const [hasOpened, setHasOpened] = useState(false)
   const [iframeLoaded, setIframeLoaded] = useState(false)
+
+  const openPicker = useCallback(() => {
+    setHasOpened(true)
+    setIsOpen(true)
+  }, [])
 
   const closePicker = useCallback(() => {
     setIsOpen(false)
-    setIframeLoaded(false)
   }, [])
 
   // Receive coordinates from the frontend via postMessage
@@ -62,15 +67,15 @@ const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
       <div style={{marginTop: 12, marginBottom: 4}}>
         <button
           type="button"
-          onClick={() => setIsOpen(true)}
+          onClick={openPicker}
           style={{padding: '6px 14px', background: '#1a1a1a', color: '#fff', border: 'none', borderRadius: 3, cursor: 'pointer', fontSize: 13, fontWeight: 500}}
         >
           Pick Title Position on Page
         </button>
       </div>
 
-      {isOpen && ReactDOM.createPortal(
-        <div style={{position: 'fixed', inset: 0, zIndex: 999999, display: 'flex', flexDirection: 'column'}}>
+      {hasOpened && ReactDOM.createPortal(
+        <div style={{position: 'fixed', inset: 0, zIndex: 999999, display: isOpen ? 'flex' : 'none', flexDirection: 'column'}}>
           <div style={{background: '#1a1a1a', color: '#fff', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, flexShrink: 0}}>
             <span>1. Click an island to select it &nbsp;&nbsp;&nbsp; 2. Click where the title should appear</span>
             <button
