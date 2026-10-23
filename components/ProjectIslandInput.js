@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useCallback, forwardRef} from 'react'
+import React, {useState, useEffect, useCallback, useRef, forwardRef} from 'react'
 import ReactDOM from 'react-dom'
 import {FormBuilderInput} from 'part:@sanity/form-builder'
-import PatchEvent, {set} from '@sanity/form-builder/PatchEvent'
+import PatchEvent, {set, setIfMissing} from '@sanity/form-builder/PatchEvent'
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PROJECT_URL || ''
 // Matches resolveProductionUrl.js's SANITY_PREVIEW_SECRET copy.
@@ -16,10 +16,19 @@ const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
   const {value = {}, type, onChange, level, focusPath = [], onFocus, onBlur, markers = [], presence = []} = props
   const [isOpen, setIsOpen] = useState(false)
   const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [saving, setSaving] = useState(false)
+
+  // Sanity's form-builder can hand this component a new onChange reference
+  // while the picker is open (e.g. a background autosave re-render). Reading
+  // through a ref instead of the closed-over value means a message that
+  // arrives after such a swap still patches through the current channel.
+  const onChangeRef = useRef(onChange)
+  onChangeRef.current = onChange
 
   const closePicker = useCallback(() => {
     setIsOpen(false)
     setIframeLoaded(false)
+    setSaving(false)
   }, [])
 
   // Receive coordinates from the frontend via postMessage
@@ -27,16 +36,29 @@ const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
     if (!isOpen) return
     const handleMessage = (e) => {
       if (e.data && e.data.type === 'pickerResult') {
-        onChange(PatchEvent.from(
-          set(String(e.data.x), ['pickerPosition', 'x']),
-          set(String(e.data.y), ['pickerPosition', 'y'])
-        ))
-        closePicker()
+        // postMessage fires outside React's own event system, so without
+        // forcing a batched update here the server-side patch can go through
+        // while the Studio's own displayed form state never resyncs with
+        // it — meaning a later Publish click re-publishes the stale value
+        // it still has in memory, overwriting the draft's correct one.
+        ReactDOM.unstable_batchedUpdates(() => {
+          onChangeRef.current(PatchEvent.from(
+            setIfMissing({}, ['pickerPosition']),
+            set(String(e.data.x), ['pickerPosition', 'x']),
+            set(String(e.data.y), ['pickerPosition', 'y'])
+          ))
+        })
+        // Autosave to the draft happens async — closing immediately let
+        // students reach Publish before that network write had actually
+        // landed, which is why saves were hit-or-miss. Staying open with a
+        // visible "Saving…" state gives it room to finish first.
+        setSaving(true)
+        setTimeout(closePicker, 1200)
       }
     }
     window.addEventListener('message', handleMessage)
     return () => window.removeEventListener('message', handleMessage)
-  }, [isOpen, onChange, closePicker])
+  }, [isOpen, closePicker])
 
   useEffect(() => {
     if (!isOpen) return
@@ -76,7 +98,7 @@ const ProjectIslandInput = forwardRef(function ProjectIslandInput(props, ref) {
       {isOpen && ReactDOM.createPortal(
         <div style={{position: 'fixed', inset: 0, zIndex: 999999, display: 'flex', flexDirection: 'column'}}>
           <div style={{background: '#1a1a1a', color: '#fff', padding: '10px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 13, flexShrink: 0}}>
-            <span>1. Click an island to select it &nbsp;&nbsp;&nbsp; 2. Click where the title should appear</span>
+            <span>{saving ? 'Saving position…' : '1. Click an island to select it     2. Click where the title should appear'}</span>
             <button
               type="button"
               onClick={closePicker}
